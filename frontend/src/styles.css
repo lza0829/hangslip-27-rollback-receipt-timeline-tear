@@ -1,0 +1,429 @@
+:root {
+  --wash: #13233a;
+  --wash-2: #1c3352;
+  --steam: #8fb3c9;
+  --soap: #f4f0e6;
+  --ticket: #efe6d4;
+  --pin: #d6453d;
+  --pin-deep: #9e2f2a;
+  --ink: #101828;
+  --muted: #5c6b7a;
+  --line: rgba(244, 240, 230, 0.18);
+  --ok: #3d8b6e;
+  --warn: #c47a22;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--soap);
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(143, 179, 201, 0.22), transparent 55%),
+    linear-gradient(165deg, #0e1a2c 0%, var(--wash) 42%, #0b1524 100%);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: repeating-linear-gradient(
+    -18deg,
+    transparent 0 14px,
+    rgba(244, 240, 230, 0.55) 14px 15px
+  );
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+}
+
+.rail {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 28px 18px 24px;
+  border-right: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(20, 40, 66, 0.92), rgba(12, 22, 36, 0.96));
+  backdrop-filter: blur(8px);
+}
+
+.brand-block {
+  margin-bottom: 28px;
+  animation: drop-in 0.7s ease both;
+}
+
+.brand {
+  margin: 0;
+  font-family: "Ma Shan Zheng", "Noto Sans SC", cursive;
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--soap);
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.brand-sub {
+  margin: 10px 0 0;
+  color: var(--steam);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.rail nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rail a {
+  position: relative;
+  display: block;
+  padding: 12px 14px 12px 18px;
+  color: var(--soap);
+  text-decoration: none;
+  background: linear-gradient(90deg, rgba(239, 230, 212, 0.08), transparent);
+  border: 1px solid transparent;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 92% 100%, 0 100%);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.rail a::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pin);
+  transform: translateY(-50%) scale(0.7);
+  box-shadow: 0 0 0 0 rgba(214, 69, 61, 0.5);
+  transition: transform 0.2s ease;
+}
+
+.rail a:hover {
+  transform: translateX(4px);
+  border-color: rgba(214, 69, 61, 0.35);
+}
+
+.rail a.active {
+  background: linear-gradient(90deg, rgba(239, 230, 212, 0.2), rgba(239, 230, 212, 0.02));
+  border-color: rgba(214, 69, 61, 0.55);
+}
+
+.rail a.active::before {
+  transform: translateY(-50%) scale(1);
+  animation: pin-pulse 1.8s ease infinite;
+}
+
+.stage {
+  padding: 28px 36px 48px;
+}
+
+.hero-strip {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 18px;
+  margin-bottom: 22px;
+  animation: rise 0.65s ease both;
+}
+
+.ticket-hero {
+  position: relative;
+  padding: 28px 30px 26px;
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, #f7f2e7 0%, var(--ticket) 100%);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  border-radius: 2px 18px 18px 2px;
+}
+
+.ticket-hero::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: 0;
+  bottom: 0;
+  width: 18px;
+  background:
+    radial-gradient(circle at 0 12px, transparent 7px, var(--wash) 8px) 0 0 / 18px 24px repeat-y;
+}
+
+.ticket-hero h2 {
+  margin: 0 0 8px;
+  font-family: "Ma Shan Zheng", cursive;
+  font-size: 2rem;
+}
+
+.ticket-hero p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.metric {
+  padding: 14px 16px;
+  background: rgba(244, 240, 230, 0.08);
+  border: 1px solid var(--line);
+  animation: rise 0.7s ease both;
+}
+
+.metric b {
+  display: block;
+  font-size: 1.45rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric span {
+  color: var(--steam);
+  font-size: 0.82rem;
+}
+
+.panel {
+  margin-top: 18px;
+  padding: 18px 18px 8px;
+  background: rgba(15, 28, 46, 0.55);
+  border: 1px solid var(--line);
+}
+
+.panel h3 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+input,
+select,
+button,
+textarea {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  min-width: 140px;
+  padding: 10px 12px;
+  color: var(--ink);
+  background: var(--soap);
+  border: 1px solid #d7cdba;
+  outline: none;
+}
+
+textarea {
+  min-width: 220px;
+  min-height: 72px;
+}
+
+button {
+  cursor: pointer;
+  padding: 10px 16px;
+  color: var(--soap);
+  background: linear-gradient(180deg, var(--pin), var(--pin-deep));
+  border: none;
+  box-shadow: 0 8px 18px rgba(158, 47, 42, 0.28);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+button.ghost {
+  background: transparent;
+  border: 1px solid rgba(244, 240, 230, 0.35);
+  box-shadow: none;
+}
+
+button.rollback {
+  border-color: rgba(196, 122, 34, 0.65);
+  color: #f0c2a0;
+}
+
+.muted-text {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.chain-row > td {
+  padding: 4px 8px 10px;
+  background: rgba(8, 16, 28, 0.5);
+}
+
+.chain-table {
+  margin: 0;
+}
+
+.chain-table th,
+.chain-table td {
+  padding: 6px 8px;
+  font-size: 0.84rem;
+}
+
+.badge.kind-倒回 {
+  border-color: rgba(196, 122, 34, 0.7);
+  color: #f0c2a0;
+}
+
+.badge.kind-取衣,
+.badge.kind-推进 {
+  border-color: rgba(61, 139, 110, 0.6);
+  color: #9fd6bd;
+}
+
+.badge.kind-隔离 {
+  border-color: rgba(214, 69, 61, 0.6);
+  color: #f0a29d;
+}
+
+.badge.kind-收衣 {
+  border-color: rgba(143, 179, 201, 0.6);
+  color: var(--steam);
+}
+
+.check-detail {
+  margin: 8px 0 12px;
+  padding: 10px;
+  max-height: 240px;
+  overflow: auto;
+  color: #f0a29d;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+
+th,
+td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+th {
+  color: var(--steam);
+  font-weight: 500;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid rgba(244, 240, 230, 0.28);
+  color: var(--soap);
+  font-size: 0.8rem;
+}
+
+.badge.待取 {
+  border-color: rgba(61, 139, 110, 0.55);
+  color: #9fd6bd;
+}
+
+.badge.超期隔离,
+.badge.丢失隔离 {
+  border-color: rgba(214, 69, 61, 0.55);
+  color: #f0a29d;
+}
+
+.badge.已取 {
+  border-color: rgba(143, 179, 201, 0.55);
+  color: var(--steam);
+}
+
+.msg {
+  margin: 8px 0 14px;
+  color: #f0c2a0;
+  min-height: 1.2em;
+}
+
+.msg.ok {
+  color: #9fd6bd;
+}
+
+@keyframes pin-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(214, 69, 61, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(214, 69, 61, 0);
+  }
+}
+
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .rail {
+    position: relative;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .rail nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .hero-strip {
+    grid-template-columns: 1fr;
+  }
+  .stage {
+    padding: 20px 16px 36px;
+  }
+}
